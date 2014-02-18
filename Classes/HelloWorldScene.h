@@ -15,6 +15,7 @@ public:
     
     // a selector callback
     void menuCloseCallback(Object* pSender);
+
     void tick(float time);
     
     // implement the "static create()" method manually

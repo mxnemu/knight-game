@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "PhysicsNode.h"
 
 USING_NS_CC;
 
@@ -80,7 +81,20 @@ bool HelloWorld::init()
 }
 
 void HelloWorld::tick(float time) {
-
+	this->world->Step(time, 3, 3);
+	const b2Body* it = world->GetBodyList();
+	while (it) {
+		Node* node = reinterpret_cast<Node*>(it->GetUserData());
+		if (node) {
+			const b2Vec2 physicsPos = it->GetPosition();
+			const Point newPos(
+				physicsPos.x * PhysicsNode::SCALE,
+				physicsPos.y * PhysicsNode::SCALE
+			);
+			node->setPosition(newPos);
+		}
+		it = it->GetNext();
+	}
 }
 
 
