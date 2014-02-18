@@ -6,7 +6,7 @@ project (${APP_NAME})
 include(cocos2d/build/BuildHelpers.CMakeLists.txt)
 
 option(USE_CHIPMUNK "Use chipmunk for physics library" ON)
-option(USE_BOX2D "Use box2d for physics library" OFF)
+option(USE_BOX2D "Use box2d for physics library" ON)
 option(DEBUG_MODE "Debug or release?" ON)
 
 if(DEBUG_MODE)
@@ -147,6 +147,7 @@ target_link_libraries(${APP_NAME}
   extensions
   audio
   cocos2d
+  box2d
   )
 
 set(APP_BIN_DIR "${CMAKE_BINARY_DIR}/bin")

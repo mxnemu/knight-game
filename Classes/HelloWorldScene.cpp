@@ -54,7 +54,7 @@ bool HelloWorld::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    auto label = LabelTTF::create("Hello World", "Arial", 24);
+    auto label = LabelTTF::create("yes this world", "Arial", 24);
     
     // position the label on the center of the screen
     label->setPosition(Point(origin.x + visibleSize.width/2,
@@ -72,7 +72,15 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
     
+    const b2Vec2 gravity(0, 10);
+    this->world = new b2World(gravity);
+    this->schedule(schedule_selector(HelloWorld::tick));
+
     return true;
+}
+
+void HelloWorld::tick(float time) {
+
 }
 
 
