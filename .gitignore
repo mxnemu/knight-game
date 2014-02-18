@@ -114,3 +114,8 @@ CMakeCache.txt
 CMakeFiles
 Makefile
 cmake_install.cmake
+
+
+#custom eclipse ignore for this project
+.cproject
+.project
