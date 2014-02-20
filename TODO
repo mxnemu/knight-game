@@ -1,4 +1,2 @@
-add debug draw, maybe: https://github.com/vinova/B2DebugDraw
-port PhysicsNode constructor from js project, or helper fns
 try making some svg maps, with static bgs, that should be the fastes way of mapping
 network thread
