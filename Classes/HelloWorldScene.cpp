@@ -6,7 +6,9 @@ USING_NS_CC;
 Scene* HelloWorld::createScene()
 {
     // 'scene' is an autorelease object
-    auto scene = Scene::create();
+    auto scene = Scene::createWithPhysics();
+    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    scene->getPhysicsWorld()->setGravity(Vect(0, -10));
     
     // 'layer' is an autorelease object
     auto layer = HelloWorld::create();
@@ -65,42 +67,25 @@ bool HelloWorld::init()
     this->addChild(label, 1);
 
     // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
+    sprite = Sprite::create("HelloWorld.png");
 
     // position the sprite on the center of the screen
     sprite->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 
     // add the sprite as a child to this layer
+    PhysicsMaterial mat(0.3, 0.1, 0.2);
+	sprite->setPhysicsBody(PhysicsBody::createBox(sprite->getContentSize(),mat, Point::ZERO));
+
     this->addChild(sprite, 0);
-    
-    const b2Vec2 gravity(0, 10);
-    this->world = new b2World(gravity);
-    this->schedule(schedule_selector(HelloWorld::tick));
 
     return true;
 }
 
-void HelloWorld::tick(float time) {
-	this->world->Step(time, 3, 3);
-	const b2Body* it = world->GetBodyList();
-	while (it) {
-		Node* node = reinterpret_cast<Node*>(it->GetUserData());
-		if (node) {
-			const b2Vec2 physicsPos = it->GetPosition();
-			const Point newPos(
-				physicsPos.x * PhysicsNode::SCALE,
-				physicsPos.y * PhysicsNode::SCALE
-			);
-			node->setPosition(newPos);
-		}
-		it = it->GetNext();
-	}
-}
-
-
 void HelloWorld::menuCloseCallback(Object* pSender)
 {
-    Director::getInstance()->end();
+	sprite->getPhysicsBody()->applyTorque(99999999);
+	sprite->getPhysicsBody()->applyImpulse(Vect(30, 10));
+    //Director::getInstance()->end();sprite->getPhysicsBody()->applyImpulse(Vect(30, 10));
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);

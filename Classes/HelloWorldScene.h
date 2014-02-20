@@ -2,7 +2,6 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
-#include "external/Box2D/Box2D.h"
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -16,13 +15,10 @@ public:
     // a selector callback
     void menuCloseCallback(Object* pSender);
 
-    void tick(float time);
-    
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 
-private:
-    b2World* world;
+    cocos2d::Sprite* sprite;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
